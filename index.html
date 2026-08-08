@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jurico — Droit international &amp; théorie des jeux</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1420;
+    --ink-deep:#070A11;
+    --paper:#EDE8DC;
+    --paper-dim:#D9D2C0;
+    --brass:#B8965A;
+    --brass-bright:#D9B87E;
+    --slate:#8792A0;
+    --signal:#A13D2D;
+    --text:#EDEAE1;
+    --text-dim:#9DA3AE;
+
+    --display:'Spectral', serif;
+    --body:'Source Sans 3', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--body);
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--brass); color:var(--ink-deep);}
+
+  /* ---------- Codex rail (signature nav element) ---------- */
+  .codex-rail{
+    position:fixed;
+    right:32px;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:50;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .codex-rail .item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:var(--text-dim);
+    transition:color 0.2s;
+  }
+  .codex-rail .item .tick{
+    width:14px; height:1px;
+    background:var(--text-dim);
+    transition:all 0.2s;
+  }
+  .codex-rail .item.active{color:var(--brass-bright);}
+  .codex-rail .item.active .tick{width:22px; background:var(--brass-bright);}
+  .codex-rail .item:hover{color:var(--brass-bright);}
+  @media (max-width:860px){ .codex-rail{display:none;} }
+
+  nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:60;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px 40px;
+    backdrop-filter:blur(6px);
+    background:linear-gradient(to bottom, rgba(14,20,32,0.9), rgba(14,20,32,0));
+  }
+  .brand{font-family:var(--display); font-size:19px; font-weight:500; letter-spacing:0.01em;}
+  .brand em{font-style:italic; color:var(--brass-bright); font-weight:400;}
+  .nav-links{display:flex; gap:32px; list-style:none; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase;}
+  .nav-links a{text-decoration:none; color:var(--text-dim); transition:color 0.2s;}
+  .nav-links a:hover{color:var(--brass-bright);}
+  @media (max-width:760px){ .nav-links{display:none;} }
+
+  section{position:relative; padding:140px 8vw 120px; max-width:1200px; margin:0 auto;}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--brass-bright); display:flex; align-items:center; gap:10px; margin-bottom:22px;
+  }
+  .eyebrow::before{content:''; width:24px; height:1px; background:var(--brass-bright); display:inline-block;}
+
+  h1,h2,h3{font-family:var(--display); font-weight:500; line-height:1.12;}
+
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height:100vh;
+    display:grid;
+    grid-template-columns:1.15fr 0.85fr;
+    gap:60px;
+    align-items:center;
+    padding-top:160px;
+    background:
+      radial-gradient(ellipse 900px 500px at 82% 15%, rgba(184,150,90,0.09), transparent 60%),
+      linear-gradient(180deg, var(--ink) 0%, #0A0F1A 60%, var(--ink-deep) 100%);
+  }
+  @media (max-width:900px){ .hero{grid-template-columns:1fr;} }
+
+  .hero h1{font-size:clamp(2.3rem, 4.6vw, 3.6rem); max-width:16ch; color:var(--text);}
+  .hero h1 .accent{font-style:italic; color:var(--brass-bright);}
+  .hero p.lede{margin-top:26px; max-width:52ch; font-size:1.08rem; color:var(--text-dim);}
+  .hero .cta-row{margin-top:40px; display:flex; gap:18px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase;
+    padding:14px 26px; border-radius:2px; text-decoration:none; display:inline-block;
+    transition:all 0.2s ease; border:1px solid var(--brass);
+  }
+  .btn.primary{background:var(--brass-bright); color:var(--ink-deep); border-color:var(--brass-bright); font-weight:500;}
+  .btn.primary:hover{background:#e8c793;}
+  .btn.ghost{color:var(--text); background:transparent;}
+  .btn.ghost:hover{border-color:var(--brass-bright); color:var(--brass-bright);}
+
+  .hero-stats{margin-top:70px; display:grid; grid-template-columns:repeat(3,auto); gap:48px;}
+  .hero-stats .stat .n{font-family:var(--display); font-size:1.8rem; color:var(--brass-bright);}
+  .hero-stats .stat .l{font-family:var(--mono); font-size:10.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-dim); margin-top:6px;}
+  @media (max-width:640px){ .hero-stats{grid-template-columns:1fr 1fr; gap:28px;} }
+
+  /* ---------- Payoff matrix (signature visual) ---------- */
+  .exhibit{
+    background:var(--paper);
+    color:var(--ink-deep);
+    padding:30px 28px 26px;
+    border:1px solid var(--paper-dim);
+    position:relative;
+  }
+  .exhibit::before{
+    content:'ANNEXE 1';
+    position:absolute; top:-11px; left:24px;
+    background:var(--brass-bright);
+    color:var(--ink-deep);
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:0.08em;
+    padding:3px 10px;
+  }
+  .exhibit h3{font-size:1.05rem; margin-bottom:4px; color:var(--ink-deep);}
+  .exhibit .sub{font-family:var(--mono); font-size:10.5px; color:#6B5B3F; letter-spacing:0.03em; margin-bottom:20px;}
+  .matrix{display:grid; grid-template-columns:auto 1fr 1fr; gap:1px; background:var(--paper-dim); border:1px solid var(--paper-dim);}
+  .matrix .cell{background:var(--paper); padding:14px 12px; font-size:0.82rem;}
+  .matrix .head{font-family:var(--mono); font-size:10px; letter-spacing:0.04em; text-transform:uppercase; color:#6B5B3F; font-weight:500;}
+  .matrix .payoff{font-family:var(--mono); font-size:0.95rem; color:var(--ink-deep); font-weight:500;}
+  .exhibit .caption{margin-top:16px; font-size:0.8rem; color:#5A4C36; line-height:1.5;}
+
+  /* ---------- Section: Article I — Équipe ---------- */
+  #equipe{background:linear-gradient(180deg, var(--ink-deep) 0%, #080C15 100%);}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:24px; flex-wrap:wrap; margin-bottom:56px;}
+  .section-head h2{font-size:clamp(1.7rem,3.2vw,2.4rem);}
+  .section-head .desc{max-width:38ch; color:var(--text-dim); font-size:0.96rem;}
+
+  .team-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:1px; background:rgba(237,234,225,0.08); border:1px solid rgba(237,234,225,0.08);}
+  .team-grid.single{grid-template-columns:1fr; max-width:420px;}
+  .member{background:var(--ink-deep); padding:32px 26px; transition:background 0.25s;}
+  .member:hover{background:#0D1420;}
+  .member .avatar{width:44px; height:44px; border-radius:2px; background:linear-gradient(135deg, var(--brass), #6B5636);}
+  .member h3{font-size:1.1rem; color:var(--text); margin:16px 0 4px;}
+  .member .role{font-family:var(--mono); font-size:10.5px; letter-spacing:0.05em; text-transform:uppercase; color:var(--brass-bright); margin-bottom:14px;}
+  .member p{font-size:0.88rem; color:var(--text-dim);}
+
+  /* ---------- Section: Article II — Axes de recherche ---------- */
+  #recherche{background:linear-gradient(180deg, #080C15 0%, #05080E 100%);}
+  .project-list{display:flex; flex-direction:column;}
+  .project{display:grid; grid-template-columns:90px 1fr 170px; gap:28px; align-items:start; padding:34px 0; border-top:1px solid rgba(237,234,225,0.1);}
+  .project:last-child{border-bottom:1px solid rgba(237,234,225,0.1);}
+  .project .art-tag{font-family:var(--mono); font-size:11.5px; color:var(--slate); padding-top:6px;}
+  .project h3{font-size:1.28rem; color:var(--text); margin-bottom:10px;}
+  .project p{color:var(--text-dim); font-size:0.94rem; max-width:56ch;}
+  .project .status{font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--brass-bright); text-align:right; padding-top:6px;}
+  @media (max-width:700px){ .project{grid-template-columns:1fr; gap:8px;} .project .status{text-align:left;} }
+
+  /* ---------- Section: Article III — Vulgarisation ---------- */
+  #vulgarisation{background:linear-gradient(180deg, #05080E 0%, var(--ink-deep) 100%);}
+  .article-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:28px;}
+  .article-card{border:1px solid rgba(237,234,225,0.1); padding:30px 28px; transition:border-color 0.25s, transform 0.25s; display:flex; flex-direction:column; height:100%;}
+  .article-card:hover{border-color:var(--brass); transform:translateY(-4px);}
+  .article-card .tag{font-family:var(--mono); font-size:10px; letter-spacing:0.07em; text-transform:uppercase; color:var(--signal); margin-bottom:16px;}
+  .article-card h3{font-size:1.2rem; color:var(--text); margin-bottom:12px;}
+  .article-card p{color:var(--text-dim); font-size:0.9rem; flex:1;}
+  .article-card .read-more{margin-top:20px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; color:var(--brass-bright); text-decoration:none;}
+  .article-card .read-more::after{content:' →';}
+
+  /* ---------- Dispositions finales / Contact ---------- */
+  #contact{background:var(--ink-deep); padding-bottom:80px;}
+  #contact h2{font-size:clamp(1.9rem,4vw,2.8rem); max-width:18ch; margin-bottom:28px;}
+  #contact .desc{max-width:48ch; color:var(--text-dim); margin-bottom:40px;}
+  .contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:32px; max-width:640px;}
+  .contact-item .l{font-family:var(--mono); font-size:10.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); margin-bottom:8px;}
+  .contact-item .v{font-size:1rem; color:var(--text);}
+
+  footer{
+    border-top:1px solid rgba(237,234,225,0.08);
+    padding:28px 8vw;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+    font-family:var(--mono); font-size:11px; color:var(--slate);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Jurico<em>.</em></div>
+  <ul class="nav-links">
+    <li><a href="#equipe">Art. I — Équipe</a></li>
+    <li><a href="#recherche">Art. II — Recherche</a></li>
+    <li><a href="#vulgarisation">Art. III — Vulgarisation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="codex-rail" id="codexRail">
+  <a class="item" data-target="surface"><span class="tick"></span>Préambule</a>
+  <a class="item" data-target="equipe"><span class="tick"></span>Art. I</a>
+  <a class="item" data-target="recherche"><span class="tick"></span>Art. II</a>
+  <a class="item" data-target="vulgarisation"><span class="tick"></span>Art. III</a>
+  <a class="item" data-target="contact"><span class="tick"></span>Art. IV</a>
+</div>
+
+<!-- ================= HERO / Préambule ================= -->
+<section class="hero" id="surface">
+  <div>
+    <div class="eyebrow">Jurico — Droit international &amp; théorie des jeux</div>
+    <h1>Le droit international <span class="accent">est une partie qui se joue</span>.</h1>
+    <p class="lede">Jurico étudie les traités, les négociations et les différends interétatiques à travers le prisme de la théorie des jeux, pour comprendre pourquoi certains accords tiennent — et d'autres non.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#vulgarisation">Lire nos articles</a>
+      <a class="btn ghost" href="#recherche">Voir nos axes de recherche</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="n">Université Hassan II</div><div class="l">Casablanca</div></div>
+      <div class="stat"><div class="n">3</div><div class="l">Axes de recherche actifs</div></div>
+      <div class="stat"><div class="n">Droit + Jeux</div><div class="l">Approche interdisciplinaire</div></div>
+    </div>
+  </div>
+
+  <div class="exhibit reveal">
+    <h3>Le dilemme de la coopération interétatique</h3>
+    <div class="sub">Illustration — jeu non coopératif à deux joueurs</div>
+    <div class="matrix">
+      <div class="cell head"></div>
+      <div class="cell head">État B — Coopère</div>
+      <div class="cell head">État B — Fait défection</div>
+
+      <div class="cell head">État A — Coopère</div>
+      <div class="cell payoff">3, 3</div>
+      <div class="cell payoff">0, 5</div>
+
+      <div class="cell head">État A — Fait défection</div>
+      <div class="cell payoff">5, 0</div>
+      <div class="cell payoff">1, 1</div>
+    </div>
+    <p class="caption">Sans mécanisme d'exécution contraignant, la défection est une stratégie dominante — ce qui explique pourquoi le droit international mise sur la réputation et la réciprocité plutôt que sur la seule contrainte.</p>
+  </div>
+</section>
+
+<!-- ================= ARTICLE I — Équipe ================= -->
+<section id="equipe">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow">Article I</div>
+      <h2>L'équipe</h2>
+    </div>
+    <p class="desc">Un laboratoire naissant, porté pour l'instant par un seul chercheur — et qui a vocation à s'étoffer.</p>
+  </div>
+  <div class="team-grid single">
+    <div class="member reveal">
+      <div class="avatar"></div>
+      <h3>Smain Yaich</h3>
+      <div class="role">Directeur &amp; chercheur principal</div>
+      <p>Chercheur en droit international et théorie des jeux, spécialisé en jeux coopératifs et non coopératifs. Travaille au lancement de futurs projets de recherche sur l'arbitrage international.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ARTICLE II — Axes de recherche ================= -->
+<section id="recherche">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow">Article II</div>
+      <h2>Axes de recherche</h2>
+    </div>
+    <p class="desc">Trois axes actifs, où le raisonnement stratégique éclaire des questions juridiques concrètes.</p>
+  </div>
+  <div class="project-list">
+    <div class="project reveal">
+      <div class="art-tag">Axe 1</div>
+      <div>
+        <h3>Arbitrage commercial international : actualité et évolutions</h3>
+        <p>Suivi et analyse des réformes récentes, de la jurisprudence arbitrale et des transformations en cours (digitalisation, évolution des règlements institutionnels) dans le règlement des différends commerciaux internationaux.</p>
+      </div>
+      <div class="status">En cours</div>
+    </div>
+    <div class="project reveal">
+      <div class="art-tag">Axe 2</div>
+      <div>
+        <h3>La nouvelle lex mercatoria : commerce et finance à l'international</h3>
+        <p>Étude des normes transnationales — usages, pratiques arbitrales, contrats-types — qui régissent aujourd'hui les échanges commerciaux et financiers internationaux, souvent indépendamment des droits nationaux.</p>
+      </div>
+      <div class="status">En cours</div>
+    </div>
+    <div class="project reveal">
+      <div class="art-tag">Axe 3</div>
+      <div>
+        <h3>Contentieux et différends internationaux : résolution, arbitrage et négociation</h3>
+        <p>Analyse des mécanismes de règlement des conflits interétatiques et commerciaux — voie contentieuse, arbitrage, négociation — et des logiques stratégiques qui déterminent le choix et l'issue de chaque procédure.</p>
+      </div>
+      <div class="status">En cours</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ARTICLE III — Vulgarisation ================= -->
+<section id="vulgarisation">
+  <div class="section-head reveal">
+    <div>
+      <div class="eyebrow">Article III</div>
+      <h2>Articles de vulgarisation</h2>
+    </div>
+    <p class="desc">Nos recherches expliquées simplement, pour rendre le droit international et ses logiques stratégiques accessibles à toutes et tous.</p>
+  </div>
+  <div class="article-grid">
+    <div class="article-card reveal">
+      <div class="tag">Coopération</div>
+      <h3>Pourquoi les États respectent-ils (parfois) leurs engagements ?</h3>
+      <p>Sans police mondiale pour faire appliquer les traités, qu'est-ce qui pousse les États à honorer leur parole ?</p>
+      <a class="read-more" href="#">Lire l'article</a>
+    </div>
+    <div class="article-card reveal">
+      <div class="tag">Climat</div>
+      <h3>Le dilemme du prisonnier appliqué aux traités climatiques</h3>
+      <p>Chaque État a intérêt à ce que les autres réduisent leurs émissions... sans réduire les siennes. Comment sortir de ce piège ?</p>
+      <a class="read-more" href="#">Lire l'article</a>
+    </div>
+    <div class="article-card reveal">
+      <div class="tag">Sanctions</div>
+      <h3>Sanctions internationales : une guerre des nerfs modélisable ?</h3>
+      <p>Ce que la théorie des jeux nous apprend sur l'efficacité — et les limites — des sanctions économiques entre États.</p>
+      <a class="read-more" href="#">Lire l'article</a>
+    </div>
+    <div class="article-card reveal">
+      <div class="tag">Concepts</div>
+      <h3>Qu'est-ce qu'un équilibre de Nash ?</h3>
+      <p>Un concept clé de la théorie des jeux, et pourquoi les diplomates devraient s'y intéresser d'aussi près que les économistes.</p>
+      <a class="read-more" href="#">Lire l'article</a>
+    </div>
+    <div class="article-card reveal">
+      <div class="tag">Justice internationale</div>
+      <h3>La Cour internationale de Justice face à l'incertitude</h3>
+      <p>Comment raisonner stratégiquement quand on ne connaît pas parfaitement les intentions de la partie adverse ?</p>
+      <a class="read-more" href="#">Lire l'article</a>
+    </div>
+    <div class="article-card reveal">
+      <div class="tag">Négociation</div>
+      <h3>Négocier un traité : stratégie dominante ou coopération tacite ?</h3>
+      <p>Plongée dans les coulisses stratégiques d'une négociation diplomatique, entre calcul rationnel et confiance construite.</p>
+      <a class="read-more" href="#">Lire l'article</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= Dispositions finales / Contact ================= -->
+<section id="contact">
+  <div class="reveal">
+    <div class="eyebrow">Dispositions finales</div>
+    <h2>Une question, une collaboration, une envie d'en savoir plus ?</h2>
+    <p class="desc">Nous répondons aux étudiants, journalistes et partenaires académiques sous quelques jours ouvrés.</p>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <div class="l">Email</div>
+        <div class="v">contact@jurico.ma</div>
+      </div>
+      <div class="contact-item">
+        <div class="l">Institution</div>
+        <div class="v">Université Hassan II, Casablanca</div>
+      </div>
+      <div class="contact-item">
+        <div class="l">Réseaux</div>
+        <div class="v">@jurico_lab</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Jurico — Laboratoire de droit international et théorie des jeux</div>
+  <div>Contenu de démonstration — à personnaliser</div>
+</footer>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:0.15});
+  revealEls.forEach(el=>io.observe(el));
+
+  const railItems = document.querySelectorAll('.codex-rail .item');
+  const sections = Array.from(railItems).map(it => document.getElementById(it.dataset.target));
+
+  railItems.forEach(it=>{
+    it.addEventListener('click', (e)=>{
+      e.preventDefault();
+      document.getElementById(it.dataset.target).scrollIntoView({behavior:'smooth'});
+    });
+  });
+
+  function updateRail(){
+    let currentIndex = 0;
+    sections.forEach((s,i)=>{
+      if(s.getBoundingClientRect().top < window.innerHeight*0.5) currentIndex = i;
+    });
+    railItems.forEach((it,i)=> it.classList.toggle('active', i===currentIndex));
+  }
+  window.addEventListener('scroll', updateRail, {passive:true});
+  window.addEventListener('resize', updateRail);
+  updateRail();
+</script>
+
+</body>
+</html>
