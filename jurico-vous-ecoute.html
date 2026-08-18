@@ -1,6 +1,10 @@
+<!DOCTYPE html>
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Jurico vous écoute</title>
 
     <style>
@@ -13,12 +17,12 @@
 
         .intro {
             text-align: center;
-            padding: 60px 20px;
+            padding: 70px 20px;
             background-color: white;
         }
 
         .intro h1 {
-            font-size: 42px;
+            font-size: 44px;
             margin-bottom: 20px;
         }
 
@@ -26,6 +30,31 @@
             font-size: 20px;
             max-width: 800px;
             margin: auto;
+            line-height: 1.6;
+        }
+
+        .rubriques {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            padding: 50px 20px;
+            flex-wrap: wrap;
+        }
+
+        .rubrique {
+            background-color: white;
+            width: 280px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .rubrique h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .rubrique p {
             line-height: 1.6;
         }
     </style>
@@ -37,9 +66,36 @@
         <h1>Jurico vous écoute</h1>
 
         <p>
-            Un espace d’échange, de réflexion et de discussion
-            autour du droit, de l’économie et des questions de société.
+            Le droit, l’économie et la société au cœur du débat.
         </p>
+    </section>
+
+    <section class="rubriques">
+
+        <div class="rubrique">
+            <h2>🎙️ Entretiens</h2>
+            <p>
+                Donner la parole aux enseignants, chercheurs,
+                professionnels et personnalités.
+            </p>
+        </div>
+
+        <div class="rubrique">
+            <h2>💬 Débats</h2>
+            <p>
+                Confronter les idées autour des grandes questions
+                juridiques, économiques et sociales.
+            </p>
+        </div>
+
+        <div class="rubrique">
+            <h2>🎥 Jurico en vidéo</h2>
+            <p>
+                Interviews, chroniques et conversations
+                à découvrir prochainement.
+            </p>
+        </div>
+
     </section>
 
 </body>
