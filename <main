@@ -32,6 +32,12 @@
             margin: auto;
             line-height: 1.6;
         }
+        .intro p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: auto;
+            line-height: 1.6;
+        }
     </style>
 </head>
 
@@ -46,6 +52,34 @@
             autour des grandes questions juridiques, économiques
             et sociales.
         </p>
+
+    </section>
+
+    <section class="rubriques">
+
+        <div class="rubrique">
+            <h2>⚖️ Débats juridiques</h2>
+            <p>
+                Des débats autour des grandes questions de droit,
+                de justice et de société.
+            </p>
+        </div>
+
+        <div class="rubrique">
+            <h2>📊 Débats économiques</h2>
+            <p>
+                Comprendre les grands enjeux économiques et confronter
+                les différentes analyses.
+            </p>
+        </div>
+
+        <div class="rubrique">
+            <h2>🌍 Débats de société</h2>
+            <p>
+                Échanger autour des grandes transformations de notre
+                société et des questions qui nous concernent tous.
+            </p>
+        </div>
 
     </section>
 
