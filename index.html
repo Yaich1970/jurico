@@ -95,7 +95,41 @@
   .nav-links{display:flex; gap:32px; list-style:none; font-family:var(--mono); font-size:12px; letter-spacing:0.06em; text-transform:uppercase;}
   .nav-links a{text-decoration:none; color:var(--text-dim); transition:color 0.2s;}
   .nav-links a:hover{color:var(--brass-bright);}
-  @media (max-width:760px){ .nav-links{display:none;} }
+  ```css
+.menu-toggle{
+  display:none;
+  background:none;
+  border:1px solid var(--brass);
+  color:var(--brass-bright);
+  font-size:22px;
+  padding:5px 10px;
+  cursor:pointer;
+}
+
+@media (max-width:760px){
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:70px;
+    right:20px;
+    flex-direction:column;
+    gap:18px;
+    background:var(--ink-deep);
+    border:1px solid rgba(237,234,225,0.15);
+    padding:20px;
+    min-width:220px;
+  }
+
+  .nav-links.open{
+    display:flex;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+}
+```
+
 
   section{position:relative; padding:140px 8vw 120px; max-width:1200px; margin:0 auto;}
 
@@ -228,6 +262,7 @@
 
 <nav>
   <div class="brand">Jurico<em>.</em></div>
+  <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
   <ul class="nav-links">
     <li><a href="#equipe">Art. I — Équipe</a></li>
     <li><a href="#recherche">Art. II — Recherche</a></li>
@@ -435,6 +470,12 @@
 </footer>
 
 <script>
+  const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
   const revealEls = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
