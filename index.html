@@ -231,16 +231,68 @@
   .project .status{font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--brass-bright); text-align:right; padding-top:6px;}
   @media (max-width:700px){ .project{grid-template-columns:1fr; gap:8px;} .project .status{text-align:left;} }
 
-  /* ---------- Section: Article III — Vulgarisation ---------- */
-  #vulgarisation{background:linear-gradient(180deg, #05080E 0%, var(--ink-deep) 100%);}
-  .article-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px,1fr)); gap:28px;}
-  .article-card{border:1px solid rgba(237,234,225,0.1); padding:30px 28px; transition:border-color 0.25s, transform 0.25s; display:flex; flex-direction:column; height:100%;}
-  .article-card:hover{border-color:var(--brass); transform:translateY(-4px);}
-  .article-card .tag{font-family:var(--mono); font-size:10px; letter-spacing:0.07em; text-transform:uppercase; color:var(--signal); margin-bottom:16px;}
-  .article-card h3{font-size:1.2rem; color:var(--text); margin-bottom:12px;}
-  .article-card p{color:var(--text-dim); font-size:0.9rem; flex:1;}
-  .article-card .read-more{margin-top:20px; font-family:var(--mono); font-size:11px; letter-spacing:0.04em; color:var(--brass-bright); text-decoration:none;}
-  .article-card .read-more::after{content:' →';}
+  /* ---------- Section: Article III — Jurico News ---------- */
+#jurico-news{
+  background:linear-gradient(180deg, #05080E 0%, var(--ink-deep) 100%);
+}
+
+.article-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
+  gap:28px;
+}
+
+.article-card{
+  border:1px solid rgba(237,234,225,0.1);
+  padding:30px 28px;
+  transition:border-color 0.25s, transform 0.25s;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+
+.article-card:hover{
+  border-color:var(--brass);
+  transform:translateY(-4px);
+}
+
+.article-card .tag{
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:0.07em;
+  text-transform:uppercase;
+  color:var(--signal);
+  margin-bottom:16px;
+}
+
+.article-card h3{
+  font-size:1.2rem;
+  color:var(--text);
+  margin-bottom:12px;
+}
+
+.article-card p{
+  color:var(--text-dim);
+  font-size:0.9rem;
+  flex:1;
+}
+
+.article-card .read-more{
+  margin-top:20px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.04em;
+  color:var(--brass-bright);
+  text-decoration:none;
+}
+
+.article-card .read-more::after{
+  content:' →';
+}
+
+.article-card .read-more:hover{
+  color:var(--brass);
+}
 
   /* ---------- Dispositions finales / Contact ---------- */
   #contact{background:var(--ink-deep); padding-bottom:80px;}
