@@ -243,12 +243,88 @@
 }
 
 .article-card{
+  position:relative;
+  overflow:hidden;
   border:1px solid rgba(237,234,225,0.1);
-  padding:30px 28px;
-  transition:border-color 0.25s, transform 0.25s;
+  padding:34px 30px;
+  transition:border-color 0.3s ease, transform 0.3s ease, background 0.3s ease;
   display:flex;
   flex-direction:column;
   height:100%;
+  min-height:250px;
+  text-decoration:none;
+  background:rgba(7,10,17,0.35);
+}
+
+.article-card::before{
+  content:attr(data-number);
+  position:absolute;
+  right:-8px;
+  bottom:-30px;
+  font-family:var(--display);
+  font-size:9rem;
+  line-height:1;
+  color:rgba(184,150,90,0.055);
+  pointer-events:none;
+  transition:transform 0.4s ease, color 0.4s ease;
+}
+
+.article-card::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:0;
+  width:0;
+  height:2px;
+  background:var(--brass-bright);
+  transition:width 0.4s ease;
+}
+
+.article-card:hover{
+  border-color:var(--brass);
+  transform:translateY(-7px);
+  background:rgba(14,20,32,0.8);
+}
+
+.article-card:hover::before{
+  transform:translate(-8px,-8px);
+  color:rgba(184,150,90,0.11);
+}
+
+.article-card:hover::after{
+  width:100%;
+}
+
+.article-card h3{
+  position:relative;
+  z-index:1;
+  font-size:1.3rem;
+  color:var(--text);
+  margin-bottom:16px;
+  max-width:25ch;
+}
+
+.article-card p{
+  position:relative;
+  z-index:1;
+  color:var(--text-dim);
+  font-size:0.92rem;
+  line-height:1.55;
+  flex:1;
+}
+
+.article-card .read-more{
+  position:relative;
+  z-index:1;
+  margin-top:22px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:0.04em;
+  color:var(--brass-bright);
+}
+
+.article-card .read-more::after{
+  content:' →';
 }
 
 .article-card:hover{
@@ -438,49 +514,45 @@
     <p class="desc">L’actualité juridique, économique et internationale décryptée pour mieux comprendre les enjeux et les stratégies qui façonnent notre monde.</p>
   </div>
 
-  <div class="article-grid">
+ <div class="article-grid">
 
-    <a class="article-card reveal" href="#">
-      <div class="tag">Coopération</div>
-      <h3>Pourquoi les États respectent-ils (parfois) leurs engagements ?</h3>
-      <p>Sans police mondiale pour faire appliquer les traités, qu'est-ce qui pousse les États à honorer leur parole ?</p>
-      <span class="read-more">Lire l'article</span>
-    </a>
+  <a class="article-card reveal" href="#" data-number="01">
+    <h3>L’Iran maintient la pression autour du détroit d’Ormuz</h3>
+    <p>Les tensions persistent autour du détroit stratégique, tandis que Téhéran affirme maintenir son contrôle sur cette voie essentielle au commerce énergétique mondial.</p>
+    <span class="read-more">En savoir plus</span>
+  </a>
 
-    <a class="article-card reveal" href="#">
-      <div class="tag">Climat</div>
-      <h3>Le dilemme du prisonnier appliqué aux traités climatiques</h3>
-      <p>Chaque État a intérêt à ce que les autres réduisent leurs émissions... sans réduire les siennes. Comment sortir de ce piège ?</p>
-      <span class="read-more">Lire l'article</span>
-    </a>
+  <a class="article-card reveal" href="#" data-number="02">
+    <h3>La guerre pèse lourdement sur l’économie iranienne</h3>
+    <p>Les sanctions américaines et les perturbations commerciales accentuent les difficultés économiques de l’Iran, alors que les efforts diplomatiques se poursuivent.</p>
+    <span class="read-more">En savoir plus</span>
+  </a>
 
-    <a class="article-card reveal" href="#">
-      <div class="tag">Sanctions</div>
-      <h3>Sanctions internationales : une guerre des nerfs modélisable ?</h3>
-      <p>Ce que la théorie des jeux nous apprend sur l'efficacité — et les limites — des sanctions économiques entre États.</p>
-      <span class="read-more">Lire l'article</span>
-    </a>
+  <a class="article-card reveal" href="#" data-number="03">
+    <h3>L’Islande se prononce sur la reprise des négociations avec l’Union européenne</h3>
+    <p>Les électeurs islandais votent aujourd’hui sur la reprise des négociations d’adhésion à l’UE. Le scrutin ne porte pas encore sur l’adhésion elle-même.</p>
+    <span class="read-more">En savoir plus</span>
+  </a>
 
-    <a class="article-card reveal" href="#">
-      <div class="tag">Concepts</div>
-      <h3>Qu'est-ce qu'un équilibre de Nash ?</h3>
-      <p>Un concept clé de la théorie des jeux, et pourquoi les diplomates devraient s'y intéresser d'aussi près que les économistes.</p>
-      <span class="read-more">Lire l'article</span>
-    </a>
+  <a class="article-card reveal" href="#" data-number="04">
+    <h3>Une nouvelle crise politique secoue le Niger</h3>
+    <p>Des soldats mutins ont attaqué plusieurs sites stratégiques à Niamey. La situation reste très volatile.</p>
+    <span class="read-more">En savoir plus</span>
+  </a>
 
-    <a class="article-card reveal" href="#">
-      <div class="tag">Justice internationale</div>
-      <h3>La Cour internationale de Justice face à l'incertitude</h3>
-      <p>Comment raisonner stratégiquement quand on ne connaît pas parfaitement les intentions de la partie adverse ?</p>
-      <span class="read-more">Lire l'article</span>
-    </a>
+  <a class="article-card reveal" href="#" data-number="05">
+    <h3>L’Union européenne relance le débat sur les avoirs russes gelés</h3>
+    <p>Plusieurs États membres souhaitent remettre sur la table l’utilisation des avoirs russes immobilisés pour soutenir l’Ukraine, relançant une question juridique sensible.</p>
+    <span class="read-more">En savoir plus</span>
+  </a>
 
-    <a class="article-card reveal" href="#">
-      <div class="tag">Négociation</div>
-      <h3>Négocier un traité : stratégie dominante ou coopération tacite ?</h3>
-      <p>Plongée dans les coulisses stratégiques d'une négociation diplomatique, entre calcul rationnel et confiance construite.</p>
-      <span class="read-more">Lire l'article</span>
-    </a>
+  <a class="article-card reveal" href="#" data-number="06">
+    <h3>La crise migratoire à Ceuta continue de mobiliser l’Europe</h3>
+    <p>Après les arrivées de migrants à Ceuta, l’Espagne et le Maroc poursuivent leur coopération tandis que Bruxelles suit la situation.</p>
+    <span class="read-more">En savoir plus</span>
+  </a>
+
+</div>
 
   </div>
 </section>
