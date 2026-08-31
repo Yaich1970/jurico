@@ -1,79 +1,109 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Jurico vous écoute</title>
+```
+<title>Jurico vous écoute</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f5f5f5;
-            color: #333;
-        }
+<style>
+    body {
+        margin: 0;
+        background: #0e1420;
+        color: #eeeae0;
+        font-family: Georgia, serif;
+    }
 
-        .intro {
-            text-align: center;
-            padding: 70px 20px;
-            background-color: white;
-        }
+    .intro {
+        text-align: center;
+        padding: 80px 20px 60px;
+    }
 
-        .intro h1 {
-            font-size: 44px;
-            margin-bottom: 20px;
-        }
+    .intro h1 {
+        font-size: 52px;
+        font-weight: normal;
+        margin-bottom: 20px;
+        color: #eeeae0;
+    }
 
-        .intro p {
-            font-size: 20px;
-            max-width: 800px;
-            margin: auto;
-            line-height: 1.6;
-        }
+    .intro h2 {
+        font-size: 26px;
+        font-weight: normal;
+        margin-bottom: 25px;
+        color: #d9b87e;
+    }
 
+    .intro p {
+        font-size: 19px;
+        max-width: 800px;
+        margin: auto;
+        line-height: 1.6;
+        color: #aaa;
+    }
+
+    .rubriques {
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        padding: 40px 20px 80px;
+        flex-wrap: wrap;
+    }
+
+    .rubrique {
+        background: #080c13;
+        width: 280px;
+        padding: 30px;
+        text-align: center;
+        border: 1px solid #665333;
+        text-decoration: none;
+        color: #eeeae0;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .rubrique:hover {
+        transform: translateY(-6px);
+        border-color: #d9b87e;
+    }
+
+    .rubrique h2 {
+        font-size: 24px;
+        font-weight: normal;
+        margin-bottom: 15px;
+        color: #d9b87e;
+    }
+
+    .rubrique p {
+        line-height: 1.6;
+        color: #aaa;
+    }
+
+    @media(max-width:700px) {
         .rubriques {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            padding: 50px 20px;
-            flex-wrap: wrap;
+            display: block;
         }
 
         .rubrique {
-            background-color: white;
-            width: 280px;
-            padding: 30px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease;
-    border: 1px solid #e5e5e5;
+            width: auto;
+            margin: 20px 0;
         }
 
-        .rubrique:hover {
-    transform: translateY(-6px);
-}
-        .intro h2 {
-    font-size: 26px;
-    font-weight: normal;
-    margin-bottom: 25px;
-}
-        .rubrique h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
+        .intro h1 {
+            font-size: 40px;
         }
+    }
+</style>
+```
 
-        .rubrique p {
-            line-height: 1.6;
-        }
-    </style>
 </head>
 
 <body>
 
-    <section class="intro">
+```
+<section class="intro">
+
     <h1>JURICO VOUS ÉCOUTE</h1>
 
     <h2>Donner la parole. Écouter les idées. Comprendre le monde.</h2>
@@ -84,35 +114,37 @@
         Entretiens, débats et conversations : ici, les idées se rencontrent
         et la parole circule.
     </p>
+
 </section>
 
-    <section class="rubriques">
+<section class="rubriques">
 
-        <a href="entretiens.html" class="rubrique">
-            <h2>🎙️ Entretiens</h2>
-            <p>
-                Donner la parole aux enseignants, chercheurs,
-                professionnels et personnalités.
-            </p>
-        </a>
+    <a href="entretiens.html" class="rubrique">
+        <h2>🎙️ Entretiens</h2>
+        <p>
+            Donner la parole aux enseignants, chercheurs,
+            professionnels et personnalités.
+        </p>
+    </a>
 
-        <a href="debats.html" class="rubrique">
-    <h2>💬 Débats</h2>
-    <p>
-        Confronter les idées autour des grandes questions
-        juridiques, économiques et sociales.
-    </p>
-</a>
+    <a href="debats.html" class="rubrique">
+        <h2>💬 Débats</h2>
+        <p>
+            Confronter les idées autour des grandes questions
+            juridiques, économiques et sociales.
+        </p>
+    </a>
 
-       <a href="jurico-en-video.html" class="rubrique">
-    <h2>🎥 Jurico en vidéo</h2>
-    <p>
-        Interviews, chroniques et conversations
-        à découvrir prochainement.
-    </p>
-</a>
+    <a href="jurico-en-video.html" class="rubrique">
+        <h2>🎥 Jurico en vidéo</h2>
+        <p>
+            Interviews, chroniques et conversations
+            à découvrir prochainement.
+        </p>
+    </a>
 
-    </section>
+</section>
+```
 
 </body>
 
